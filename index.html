@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Свадьба Романа и Айны · 22 августа 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ivory:   rgba(255,252,249,0.78);
+      --white:   rgba(255,253,251,0.84);
+      --rose:    #b8837c;
+      --rose-lt: #d9b0ab;
+      --gold:    #b89a6a;
+      --gold-lt: #d2bc98;
+      --text:    #534038;
+      --muted:   #967e74;
+      --border:  rgba(205,178,172,0.38);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: url('lace-bg.png') center / cover fixed;
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ── FADE-IN ── */
+    .fade {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+    .fade.visible { opacity: 1; transform: none; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: clamp(80px, 10vw, 120px) 20px 70px;
+      background: transparent;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-corner {
+      position: absolute;
+      opacity: .18;
+      pointer-events: none;
+    }
+    .hero-corner.tl { top: 28px; left: 28px; }
+    .hero-corner.tr { top: 28px; right: 28px; transform: scaleX(-1); }
+    .hero-corner.bl { bottom: 28px; left: 28px; transform: scaleY(-1); }
+    .hero-corner.br { bottom: 28px; right: 28px; transform: scale(-1,-1); }
+
+    .hero-label {
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      font-size: .72rem;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 32px;
+      opacity: .85;
+    }
+    .ornament { color: var(--gold); margin: 0 10px; }
+
+    .names {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 9vw, 5.2rem);
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.1;
+    }
+    .names .amp {
+      font-style: italic;
+      color: var(--rose);
+      display: block;
+      font-size: .5em;
+      margin: 8px 0;
+      opacity: .9;
+    }
+
+    .hero-divider {
+      width: 64px; height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold-lt), transparent);
+      margin: 26px auto 10px;
+    }
+
+    .hero-bow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      opacity: .65;
+    }
+
+    .hero-date {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(.95rem, 3vw, 1.25rem);
+      color: var(--rose);
+      letter-spacing: .16em;
+      opacity: .9;
+    }
+    .hero-meta {
+      margin-top: 10px;
+      font-size: .85rem;
+      font-weight: 300;
+      color: var(--muted);
+      letter-spacing: .08em;
+    }
+    .scroll-hint {
+      margin-top: 64px;
+      font-size: .68rem;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: .45;
+      animation: bob 2.5s ease-in-out infinite;
+    }
+    @keyframes bob {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(7px); }
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 90px 24px;
+    }
+    .section-tag {
+      font-size: .65rem;
+      letter-spacing: .36em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+      display: block;
+      opacity: .85;
+    }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 4vw, 2.1rem);
+      font-weight: 400;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+    .rule {
+      width: 44px; height: 1px;
+      background: linear-gradient(to right, transparent, var(--rose-lt), transparent);
+      margin-bottom: 32px;
+      border-radius: 1px;
+    }
+    p { font-size: 1rem; font-weight: 300; color: var(--muted); }
+
+    /* ── LACE TOP ── */
+    .lace-top {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 18px;
+      border-radius: 20px 20px 0 0;
+      background:
+        radial-gradient(circle at 9px 18px, transparent 7px, var(--rose-lt) 7px, var(--rose-lt) 8px, transparent 8px) 0 0 / 18px 18px repeat-x;
+      opacity: .25;
+      pointer-events: none;
+    }
+
+    /* ── GLASS CARD (shared mixin feel) ── */
+    .glass {
+      background: rgba(255,252,249,0.72);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.55);
+      box-shadow: 0 4px 32px rgba(160,120,110,.08), inset 0 1px 0 rgba(255,255,255,.6);
+    }
+
+    /* ── GREETING ── */
+    .greeting {
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      background: rgba(255,252,249,0.72);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.5);
+      border-radius: 20px;
+      padding: 60px 40px 56px;
+      box-shadow: 0 4px 40px rgba(150,110,100,.08), inset 0 1px 0 rgba(255,255,255,.5);
+    }
+    .greeting p {
+      font-size: 1.05rem;
+      line-height: 2;
+      max-width: 540px;
+      margin: 0 auto;
+      color: var(--muted);
+    }
+
+    /* ── PHOTO BLOCK ── */
+    .photo-section {
+      text-align: center;
+      padding-top: 0;
+      padding-bottom: 90px;
+    }
+    .photo-frame {
+      position: relative;
+      display: inline-block;
+      max-width: 540px;
+      width: calc(100% - 32px);
+      background: rgba(255,252,249,0.75);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(210,185,178,0.4);
+      border-radius: 6px;
+      padding: 16px;
+      box-shadow: 0 8px 48px rgba(150,110,100,.1);
+    }
+    .photo-corner {
+      position: absolute;
+      width: 46px; height: 46px;
+      pointer-events: none;
+    }
+    .photo-corner.tl { top: 5px;  left: 5px; }
+    .photo-corner.tr { top: 5px;  right: 5px; transform: scaleX(-1); }
+    .photo-corner.bl { bottom: 5px; left: 5px; transform: scaleY(-1); }
+    .photo-corner.br { bottom: 5px; right: 5px; transform: scale(-1,-1); }
+    .photo-inner {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      border-radius: 3px;
+      border: 1px solid rgba(205,178,172,0.3);
+      background: rgba(245,238,234,0.5);
+    }
+    .photo-inner img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+    .photo-ph {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 28px;
+    }
+    .photo-ph p {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--muted);
+    }
+    .photo-ph small {
+      font-size: .73rem;
+      color: var(--rose-lt);
+      line-height: 1.65;
+      max-width: 280px;
+      display: block;
+      text-align: center;
+    }
+    .photo-caption {
+      display: block;
+      margin-top: 18px;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--rose);
+      opacity: .85;
+    }
+
+    /* ── FANCY SEPARATOR ── */
+    .sep-fancy {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 24px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    /* ── DETAILS ── */
+    .details-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 12px;
+    }
+    .detail-card {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      background: rgba(255,252,249,0.68);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(220,195,190,0.32);
+      border-radius: 16px;
+      padding: 24px 32px;
+      box-shadow: 0 2px 24px rgba(150,110,100,.07);
+      transition: box-shadow .25s, transform .25s;
+    }
+    .detail-card:hover {
+      box-shadow: 0 6px 32px rgba(150,110,100,.12);
+      transform: translateY(-2px);
+    }
+    /* Remove the old ::before top bar */
+    .detail-card::before { display: none; }
+
+    .detail-illus {
+      flex-shrink: 0;
+      width: 72px; height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .detail-text { text-align: left; }
+    .detail-card strong {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.08rem;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+    .detail-card span {
+      font-size: .83rem;
+      color: var(--muted);
+      font-weight: 300;
+      letter-spacing: .04em;
+    }
+
+    /* ── PROGRAM ── */
+    .program-list {
+      list-style: none;
+      position: relative;
+    }
+    .program-list::before {
+      content: '';
+      position: absolute;
+      left: 48px; top: 10px; bottom: 10px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--gold-lt), var(--rose-lt), transparent);
+      opacity: .6;
+    }
+    .program-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      margin-bottom: 30px;
+      position: relative;
+    }
+    .prog-time {
+      min-width: 52px;
+      text-align: right;
+      font-family: 'Playfair Display', serif;
+      font-size: .88rem;
+      color: var(--gold);
+      padding-top: 2px;
+      flex-shrink: 0;
+      opacity: .85;
+    }
+    .prog-dot {
+      width: 9px; height: 9px;
+      background: rgba(255,252,249,0.9);
+      border: 1.5px solid var(--rose-lt);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 7px;
+    }
+    .prog-body strong {
+      font-size: .98rem;
+      display: block;
+      color: var(--text);
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+    .prog-body span {
+      font-size: .84rem;
+      color: var(--muted);
+      font-weight: 300;
+    }
+
+    /* ── FORM ── */
+    .form-wrap {
+      position: relative;
+      overflow: hidden;
+      background: rgba(255,252,249,0.72);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 60px 44px 52px;
+      box-shadow: 0 4px 40px rgba(150,110,100,.08);
+      border: 1px solid rgba(255,255,255,0.5);
+    }
+    .form-group { margin-bottom: 24px; }
+
+    .form-label {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: .88rem;
+      letter-spacing: .04em;
+      color: var(--muted);
+      margin-bottom: 10px;
+      font-weight: 400;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 0;
+      border-bottom: 1px solid rgba(205,178,172,0.55);
+      border-radius: 0;
+      background: transparent;
+      font-family: 'Lato', sans-serif;
+      font-size: .94rem;
+      color: var(--text);
+      transition: border-color .25s;
+      outline: none;
+    }
+    input[type="text"]:focus,
+    textarea:focus {
+      border-bottom-color: var(--rose);
+    }
+    textarea {
+      resize: vertical;
+      min-height: 90px;
+      border: 1px solid rgba(205,178,172,0.45);
+      border-radius: 8px;
+      padding: 12px 16px;
+      background: rgba(255,252,249,0.4);
+    }
+    textarea:focus {
+      border-color: var(--rose-lt);
+      box-shadow: 0 0 0 3px rgba(185,130,125,.07);
+    }
+
+    /* radio pills */
+    .radio-group { display: flex; gap: 10px; flex-wrap: wrap; }
+    .radio-pill  { display: flex; align-items: center; }
+    .radio-pill input[type="radio"] { display: none; }
+    .radio-pill span {
+      display: inline-block;
+      font-size: .84rem; font-weight: 300;
+      color: var(--muted); cursor: pointer;
+      background: rgba(255,252,249,0.5);
+      border: 1px solid rgba(205,178,172,0.45);
+      border-radius: 30px;
+      padding: 9px 20px;
+      transition: border-color .2s, background .2s, color .2s;
+      user-select: none;
+      letter-spacing: .02em;
+    }
+    .radio-pill input:checked + span {
+      border-color: var(--rose);
+      background: rgba(215,175,170,0.18);
+      color: var(--rose);
+    }
+
+    /* check pills */
+    .check-group { display: flex; flex-wrap: wrap; gap: 8px; }
+    .check-pill  { display: flex; align-items: center; }
+    .check-pill input[type="checkbox"] { display: none; }
+    .check-pill span {
+      display: inline-block;
+      font-size: .82rem; font-weight: 300;
+      color: var(--muted); cursor: pointer;
+      background: rgba(255,252,249,0.5);
+      border: 1px solid rgba(205,178,172,0.45);
+      border-radius: 30px;
+      padding: 8px 16px;
+      transition: border-color .2s, background .2s, color .2s;
+      user-select: none;
+    }
+    .check-pill input:checked + span {
+      border-color: var(--rose);
+      background: rgba(215,175,170,0.18);
+      color: var(--rose);
+    }
+
+    /* partner section */
+    .partner-section {
+      padding-top: 28px;
+      border-top: 1px solid rgba(205,178,172,0.3);
+      margin-top: 8px;
+    }
+    .partner-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; font-weight: 400;
+      color: var(--muted); margin-bottom: 22px;
+      font-style: italic;
+    }
+    .drink-other { margin-top: 10px; }
+
+    .btn {
+      display: inline-block;
+      background: transparent;
+      color: var(--rose);
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1rem;
+      letter-spacing: .08em;
+      border: 1px solid var(--rose-lt);
+      border-radius: 30px;
+      padding: 14px 50px;
+      cursor: pointer;
+      transition: background .25s, color .25s, border-color .25s, transform .2s;
+      box-shadow: 0 2px 16px rgba(180,120,115,.1);
+    }
+    .btn:hover {
+      background: rgba(215,175,170,0.22);
+      border-color: var(--rose);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(180,120,115,.16);
+    }
+
+    .success-msg {
+      display: none; text-align: center;
+      padding: 22px;
+      background: rgba(200,220,195,0.25);
+      border: 1px solid rgba(160,200,155,0.5);
+      border-radius: 12px;
+      color: #5a7855;
+      font-size: .95rem;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      margin-top: 18px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 52px 20px clamp(80px, 10vw, 120px);
+      border-top: 1px solid rgba(205,178,172,0.28);
+    }
+    footer .footer-wish {
+      font-family: 'Playfair Display', serif;
+      font-style: italic; font-size: 1.1rem;
+      color: var(--rose); margin-bottom: 8px;
+      opacity: .88;
+    }
+    footer .footer-names {
+      font-family: 'Playfair Display', serif;
+      font-style: italic; font-size: .92rem;
+      color: var(--muted); margin-bottom: 16px;
+    }
+    footer small {
+      font-size: .72rem;
+      color: rgba(180,155,145,0.55);
+      letter-spacing: .14em;
+    }
+
+    /* ── MUSIC BUTTON ── */
+    #musicBtn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 18px 9px 14px;
+      border-radius: 30px;
+      border: 1px solid rgba(205,178,172,0.5);
+      background: rgba(255,252,249,0.72);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 2px 18px rgba(150,110,100,.10);
+      color: var(--rose);
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: .82rem;
+      letter-spacing: .03em;
+      cursor: pointer;
+      transition: background .25s, box-shadow .25s, transform .18s;
+      outline: none;
+    }
+    #musicBtn:hover {
+      background: rgba(255,252,249,0.90);
+      box-shadow: 0 4px 28px rgba(150,110,100,.16);
+      transform: translateY(-1px);
+    }
+    #musicBtn:active { transform: scale(.97); }
+    #musicBtn .music-icon { font-size: 1rem; line-height: 1; }
+    #musicBtn .music-label { white-space: nowrap; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 560px) {
+      .form-wrap { padding: 44px 20px 36px; }
+      section { padding: 64px 16px; }
+      .photo-section { padding-bottom: 64px; }
+      .hero-corner { display: none; }
+      .detail-card { padding: 20px 22px; gap: 18px; }
+      .detail-illus { width: 56px; height: 56px; }
+      #musicBtn { padding: 8px 14px 8px 11px; font-size: .76rem; top: 14px; right: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── MUSIC CONTROLS ── -->
+<button id="musicBtn" aria-label="Управление музыкой">
+  <span class="music-icon">🎵</span>
+  <span class="music-label">Включить музыку</span>
+</button>
+<audio id="bgMusic" loop preload="none" src="music.mp3"></audio>
+
+<!-- ═══════════════════════ HERO ═══════════════════════ -->
+<header class="hero">
+
+  <!-- Corner botanical leaves -->
+  <div class="hero-corner tl" aria-hidden="true">
+    <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M5,67 Q36,36 67,5" stroke="#c8a96e" stroke-width="1" stroke-linecap="round"/>
+      <ellipse cx="21" cy="51" rx="11" ry="5" fill="#e8d5b0" transform="rotate(-45,21,51)"/>
+      <ellipse cx="37" cy="35" rx="11" ry="5" fill="#e8d5b0" transform="rotate(-45,37,35)"/>
+      <ellipse cx="53" cy="19" rx="10" ry="4.5" fill="#e8d5b0" transform="rotate(-45,53,19)"/>
+      <circle cx="13" cy="59" r="2" fill="#e8b4ae"/>
+      <circle cx="30" cy="42" r="1.5" fill="#e8b4ae"/>
+      <circle cx="59" cy="13" r="1.5" fill="#e8b4ae"/>
+    </svg>
+  </div>
+  <div class="hero-corner tr" aria-hidden="true">
+    <svg width="72" height="72" viewBox="0 0 72 72" fill="none">
+      <path d="M5,67 Q36,36 67,5" stroke="#c8a96e" stroke-width="1" stroke-linecap="round"/>
+      <ellipse cx="21" cy="51" rx="11" ry="5" fill="#e8d5b0" transform="rotate(-45,21,51)"/>
+      <ellipse cx="37" cy="35" rx="11" ry="5" fill="#e8d5b0" transform="rotate(-45,37,35)"/>
+      <ellipse cx="53" cy="19" rx="10" ry="4.5" fill="#e8d5b0" transform="rotate(-45,53,19)"/>
+      <circle cx="13" cy="59" r="2" fill="#e8b4ae"/>
+      <circle cx="30" cy="42" r="1.5" fill="#e8b4ae"/>
+      <circle cx="59" cy="13" r="1.5" fill="#e8b4ae"/>
+    </svg>
+  </div>
+  <div class="hero-corner bl" aria-hidden="true">
+    <svg width="72" height="72" viewBox="0 0 72 72" fill="none">
+      <path d="M5,67 Q36,36 67,5" stroke="#c8a96e" stroke-width="1" stroke-linecap="round"/>
+      <ellipse cx="21" cy="51" rx="11" ry="5" fill="#e8d5b0" transform="rotate(-45,21,51)"/>
+      <ellipse cx="37" cy="35" rx="11" ry="5" fill="#e8d5b0" transform="rotate(-45,37,35)"/>
+      <ellipse cx="53" cy="19" rx="10" ry="4.5" fill="#e8d5b0" transform="rotate(-45,53,19)"/>
+      <circle cx="13" cy="59" r="2" fill="#e8b4ae"/>
+      <circle cx="30" cy="42" r="1.5" fill="#e8b4ae"/>
+      <circle cx="59" cy="13" r="1.5" fill="#e8b4ae"/>
+    </svg>
+  </div>
+  <div class="hero-corner br" aria-hidden="true">
+    <svg width="72" height="72" viewBox="0 0 72 72" fill="none">
+      <path d="M5,67 Q36,36 67,5" stroke="#c8a96e" stroke-width="1" stroke-linecap="round"/>
+      <ellipse cx="21" cy="51" rx="11" ry="5" fill="#e8d5b0" transform="rotate(-45,21,51)"/>
+      <ellipse cx="37" cy="35" rx="11" ry="5" fill="#e8d5b0" transform="rotate(-45,37,35)"/>
+      <ellipse cx="53" cy="19" rx="10" ry="4.5" fill="#e8d5b0" transform="rotate(-45,53,19)"/>
+      <circle cx="13" cy="59" r="2" fill="#e8b4ae"/>
+      <circle cx="30" cy="42" r="1.5" fill="#e8b4ae"/>
+      <circle cx="59" cy="13" r="1.5" fill="#e8b4ae"/>
+    </svg>
+  </div>
+
+  <p class="hero-label fade">
+    <span class="ornament">✦</span>Приглашение на свадьбу<span class="ornament">✦</span>
+  </p>
+
+  <div class="names fade">
+    Роман
+    <span class="amp">&amp;</span>
+    Айна
+  </div>
+
+  <div class="hero-divider fade"></div>
+
+  <!-- Bow decoration -->
+  <div class="hero-bow fade" aria-hidden="true">
+    <svg width="110" height="38" viewBox="0 0 110 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Left wing -->
+      <path d="M55,19 C48,11 32,5 18,9 C9,13 11,23 22,23 C35,23 50,19 55,19Z"
+            fill="none" stroke="#e8b4ae" stroke-width="1.2" stroke-linejoin="round"/>
+      <!-- Right wing -->
+      <path d="M55,19 C62,11 78,5 92,9 C101,13 99,23 88,23 C75,23 60,19 55,19Z"
+            fill="none" stroke="#e8b4ae" stroke-width="1.2" stroke-linejoin="round"/>
+      <!-- Ribbon tails -->
+      <path d="M52,20 Q46,30 42,37" stroke="#e8b4ae" stroke-width="1" stroke-linecap="round"/>
+      <path d="M58,20 Q64,30 68,37" stroke="#e8b4ae" stroke-width="1" stroke-linecap="round"/>
+      <!-- Center knot -->
+      <ellipse cx="55" cy="19" rx="5" ry="5" fill="none" stroke="#c8a96e" stroke-width="1.2"/>
+      <ellipse cx="55" cy="19" rx="2" ry="2" fill="#c8a96e" opacity=".6"/>
+    </svg>
+  </div>
+
+  <p class="hero-date fade">22 августа 2026 года</p>
+  <p class="hero-meta fade">Банкетный зал «Мидийная» · г. Саратов</p>
+  <p class="scroll-hint fade">↓ &nbsp; листайте вниз</p>
+</header>
+
+
+<!-- ═══════════════════ GREETING ═══════════════════════ -->
+<section>
+  <div class="greeting fade">
+    <div class="lace-top" aria-hidden="true"></div>
+    <span class="section-tag">✦ &nbsp; добро пожаловать</span>
+    <h2>Дорогие гости</h2>
+    <div class="rule" style="margin:0 auto 32px;"></div>
+    <p>
+      Мы счастливы пригласить вас разделить с нами один из самых важных дней в нашей жизни.
+      В этот день мы объединяем наши сердца и хотим, чтобы рядом были именно вы —
+      те, кто нам особенно дорог.
+      <br /><br />
+      Будем рады видеть вас за нашим свадебным столом, наполненным теплом, смехом и хорошим настроением.
+      Приходите — вместе нам будет веселее!
+    </p>
+  </div>
+</section>
+
+
+<!-- ═══════════════════ PHOTO ════════════════════════════ -->
+<section class="photo-section">
+  <span class="section-tag fade">✦ &nbsp; наша пара</span>
+
+  <div class="photo-frame fade">
+    <!-- Corner ornaments -->
+    <svg class="photo-corner tl" viewBox="0 0 46 46" fill="none" aria-hidden="true">
+      <line x1="2" y1="24" x2="2" y2="4"   stroke="#c8a96e" stroke-width="1"/>
+      <line x1="2" y1="4"  x2="24" y2="4"  stroke="#c8a96e" stroke-width="1"/>
+      <path d="M2,22 Q2,10 12,5 Q20,4 24,4" stroke="#e8b4ae" stroke-width=".8" fill="none"/>
+      <circle cx="2"  cy="4"  r="2.2" fill="#c8a96e"/>
+      <circle cx="24" cy="4"  r="1.4" fill="#e8d5b0"/>
+      <circle cx="2"  cy="24" r="1.4" fill="#e8d5b0"/>
+      <circle cx="13" cy="13" r="1"   fill="#e8d5b0"/>
+    </svg>
+    <svg class="photo-corner tr" viewBox="0 0 46 46" fill="none" aria-hidden="true">
+      <line x1="2" y1="24" x2="2" y2="4"   stroke="#c8a96e" stroke-width="1"/>
+      <line x1="2" y1="4"  x2="24" y2="4"  stroke="#c8a96e" stroke-width="1"/>
+      <path d="M2,22 Q2,10 12,5 Q20,4 24,4" stroke="#e8b4ae" stroke-width=".8" fill="none"/>
+      <circle cx="2"  cy="4"  r="2.2" fill="#c8a96e"/>
+      <circle cx="24" cy="4"  r="1.4" fill="#e8d5b0"/>
+      <circle cx="2"  cy="24" r="1.4" fill="#e8d5b0"/>
+      <circle cx="13" cy="13" r="1"   fill="#e8d5b0"/>
+    </svg>
+    <svg class="photo-corner bl" viewBox="0 0 46 46" fill="none" aria-hidden="true">
+      <line x1="2" y1="24" x2="2" y2="4"   stroke="#c8a96e" stroke-width="1"/>
+      <line x1="2" y1="4"  x2="24" y2="4"  stroke="#c8a96e" stroke-width="1"/>
+      <path d="M2,22 Q2,10 12,5 Q20,4 24,4" stroke="#e8b4ae" stroke-width=".8" fill="none"/>
+      <circle cx="2"  cy="4"  r="2.2" fill="#c8a96e"/>
+      <circle cx="24" cy="4"  r="1.4" fill="#e8d5b0"/>
+      <circle cx="2"  cy="24" r="1.4" fill="#e8d5b0"/>
+      <circle cx="13" cy="13" r="1"   fill="#e8d5b0"/>
+    </svg>
+    <svg class="photo-corner br" viewBox="0 0 46 46" fill="none" aria-hidden="true">
+      <line x1="2" y1="24" x2="2" y2="4"   stroke="#c8a96e" stroke-width="1"/>
+      <line x1="2" y1="4"  x2="24" y2="4"  stroke="#c8a96e" stroke-width="1"/>
+      <path d="M2,22 Q2,10 12,5 Q20,4 24,4" stroke="#e8b4ae" stroke-width=".8" fill="none"/>
+      <circle cx="2"  cy="4"  r="2.2" fill="#c8a96e"/>
+      <circle cx="24" cy="4"  r="1.4" fill="#e8d5b0"/>
+      <circle cx="2"  cy="24" r="1.4" fill="#e8d5b0"/>
+      <circle cx="13" cy="13" r="1"   fill="#e8d5b0"/>
+    </svg>
+
+    <div class="photo-inner">
+      <!-- Когда будет фото: уберите display:none у img и удалите photo-ph -->
+      <img id="couplePhoto" src="photo.jpg" alt="Роман и Айна"
+           onload="this.style.display='block'; document.getElementById('photo-placeholder').style.display='none';" />
+      <div class="photo-ph" id="photo-placeholder">
+        <!-- Кольца-заглушка -->
+        <svg width="70" height="35" viewBox="0 0 70 35" fill="none" aria-hidden="true">
+          <circle cx="22" cy="17" r="15" stroke="#e8d5b0" stroke-width="2"/>
+          <circle cx="48" cy="17" r="15" stroke="#c8a96e" stroke-width="2"/>
+        </svg>
+        <p>Здесь будет ваша фотография</p>
+        <small>Поместите файл рядом с index.html<br />и назовите его <strong>photo.jpg</strong></small>
+      </div>
+    </div>
+  </div>
+
+  <span class="photo-caption fade">Роман &amp; Айна</span>
+</section>
+
+
+<!-- ═══════════════════ SEP ═══════════════════════════ -->
+<div class="sep-fancy fade" aria-hidden="true">
+  <svg width="300" height="22" viewBox="0 0 300 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0"   y1="11" x2="126" y2="11" stroke="#e8d5b0" stroke-width="1"/>
+    <path d="M126,11 Q133,6 138,11 Q133,16 126,11Z" fill="#e8b4ae"/>
+    <path d="M162,11 Q155,6 150,11 Q155,16 162,11Z" fill="#e8b4ae"/>
+    <path d="M150,4 L156,11 L150,18 L144,11 Z"  fill="none" stroke="#c8a96e" stroke-width="1"/>
+    <path d="M150,8 L153,11 L150,14 L147,11 Z"  fill="#e8d5b0"/>
+    <line x1="162" y1="11" x2="300" y2="11" stroke="#e8d5b0" stroke-width="1"/>
+  </svg>
+</div>
+
+
+<!-- ═══════════════════ DETAILS ════════════════════════ -->
+<section>
+  <span class="section-tag fade">✦ &nbsp; детали</span>
+  <h2 class="fade">Когда и где</h2>
+  <div class="rule fade"></div>
+
+  <div class="details-grid fade">
+
+    <!-- ДАТА -->
+    <div class="detail-card">
+      <div class="detail-illus">
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="36" cy="36" r="32" stroke="#d2bc98" stroke-width=".8" opacity=".7"/>
+          <circle cx="36" cy="36" r="25" stroke="#d9b0ab" stroke-width=".6" stroke-dasharray="2 7" opacity=".6"/>
+          <ellipse cx="36" cy="6"  rx="2.5" ry="1.5" fill="#d2bc98" opacity=".75"/>
+          <ellipse cx="66" cy="36" rx="1.5" ry="2.5" fill="#d2bc98" opacity=".75"/>
+          <ellipse cx="36" cy="66" rx="2.5" ry="1.5" fill="#d2bc98" opacity=".75"/>
+          <ellipse cx="6"  cy="36" rx="1.5" ry="2.5" fill="#d2bc98" opacity=".75"/>
+          <text x="36" y="32" text-anchor="middle" font-family="Playfair Display,Georgia,serif" font-size="20" fill="#534038" opacity=".82">22</text>
+          <text x="36" y="45" text-anchor="middle" font-family="Lato,sans-serif" font-size="6" fill="#b89a6a" letter-spacing="3" opacity=".85">АВГУСТА</text>
+          <text x="36" y="55" text-anchor="middle" font-family="Lato,sans-serif" font-size="5.5" fill="#d9b0ab" letter-spacing="2">2026</text>
+        </svg>
+      </div>
+      <div class="detail-text">
+        <strong>22 августа 2026</strong>
+        <span>Суббота</span>
+      </div>
+    </div>
+
+    <!-- ВРЕМЯ -->
+    <div class="detail-card">
+      <div class="detail-illus">
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="36" cy="38" r="28" stroke="#d9b0ab" stroke-width=".9" opacity=".65"/>
+          <circle cx="36" cy="38" r="22" stroke="#d2bc98" stroke-width=".6" opacity=".5"/>
+          <!-- Crown ornament -->
+          <path d="M30,10 L36,6 L42,10" stroke="#d2bc98" stroke-width=".9" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity=".7"/>
+          <line x1="36" y1="6" x2="36" y2="12" stroke="#d2bc98" stroke-width=".9" stroke-linecap="round" opacity=".7"/>
+          <!-- Hour markers -->
+          <circle cx="36" cy="17" r="1.4" fill="#d2bc98" opacity=".8"/>
+          <circle cx="58" cy="38" r="1.4" fill="#d2bc98" opacity=".8"/>
+          <circle cx="36" cy="59" r="1.4" fill="#d2bc98" opacity=".8"/>
+          <circle cx="14" cy="38" r="1.4" fill="#d2bc98" opacity=".8"/>
+          <!-- Hour hand → 4 o'clock -->
+          <line x1="36" y1="38" x2="50" y2="49" stroke="#534038" stroke-width="1.6" stroke-linecap="round" opacity=".65"/>
+          <!-- Minute hand → 12 o'clock -->
+          <line x1="36" y1="38" x2="36" y2="19" stroke="#534038" stroke-width="1.2" stroke-linecap="round" opacity=".65"/>
+          <!-- Center -->
+          <circle cx="36" cy="38" r="2.4" fill="#b8837c" opacity=".8"/>
+        </svg>
+      </div>
+      <div class="detail-text">
+        <strong>16:00</strong>
+        <span>Начало праздника</span>
+      </div>
+    </div>
+
+    <!-- МЕСТО -->
+    <div class="detail-card">
+      <div class="detail-illus">
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Ground -->
+          <line x1="6" y1="64" x2="66" y2="64" stroke="#d2bc98" stroke-width=".8" opacity=".6"/>
+          <!-- Left pillar -->
+          <line x1="16" y1="34" x2="16" y2="64" stroke="#d9b0ab" stroke-width="1.6" stroke-linecap="round" opacity=".75"/>
+          <!-- Right pillar -->
+          <line x1="56" y1="34" x2="56" y2="64" stroke="#d9b0ab" stroke-width="1.6" stroke-linecap="round" opacity=".75"/>
+          <!-- Main arch -->
+          <path d="M16,34 Q16,8 36,8 Q56,8 56,34" stroke="#d9b0ab" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".75"/>
+          <!-- Inner arch -->
+          <path d="M22,38 Q22,16 36,16 Q50,16 50,38" stroke="#d2bc98" stroke-width=".8" fill="none" opacity=".6"/>
+          <!-- Door -->
+          <path d="M28,64 L28,50 Q28,43 36,43 Q44,43 44,50 L44,64" stroke="#d9b0ab" stroke-width="1.2" fill="none" opacity=".7"/>
+          <!-- Keystone -->
+          <ellipse cx="36" cy="10" rx="2.5" ry="1.6" fill="#d2bc98" opacity=".75"/>
+          <!-- Capital dots -->
+          <circle cx="16" cy="32" r="2" fill="#d2bc98" opacity=".6"/>
+          <circle cx="56" cy="32" r="2" fill="#d2bc98" opacity=".6"/>
+        </svg>
+      </div>
+      <div class="detail-text">
+        <strong>Банкетный зал «Мидийная»</strong>
+        <span>г. Саратов</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════ SEP ═══════════════════════════ -->
+<div class="sep-fancy fade" aria-hidden="true">
+  <svg width="300" height="22" viewBox="0 0 300 22" fill="none">
+    <line x1="0"   y1="11" x2="126" y2="11" stroke="#e8d5b0" stroke-width="1"/>
+    <path d="M126,11 Q133,6 138,11 Q133,16 126,11Z" fill="#e8b4ae"/>
+    <path d="M162,11 Q155,6 150,11 Q155,16 162,11Z" fill="#e8b4ae"/>
+    <path d="M150,4 L156,11 L150,18 L144,11 Z" fill="none" stroke="#c8a96e" stroke-width="1"/>
+    <path d="M150,8 L153,11 L150,14 L147,11 Z" fill="#e8d5b0"/>
+    <line x1="162" y1="11" x2="300" y2="11" stroke="#e8d5b0" stroke-width="1"/>
+  </svg>
+</div>
+
+
+<!-- ═══════════════════ PROGRAM ════════════════════════ -->
+<section>
+  <span class="section-tag fade">✦ &nbsp; программа</span>
+  <h2 class="fade">Как пройдёт наш день</h2>
+  <div class="rule fade"></div>
+
+  <ul class="program-list fade">
+    <li>
+      <span class="prog-time">16:00</span>
+      <div class="prog-dot"></div>
+      <div class="prog-body">
+        <strong>Сбор гостей</strong>
+        <span>Приветственный коктейль, живая музыка, знакомство гостей</span>
+      </div>
+    </li>
+    <li>
+      <span class="prog-time">16:30</span>
+      <div class="prog-dot"></div>
+      <div class="prog-body">
+        <strong>Торжественный вход молодых</strong>
+        <span>Роман и Айна открывают праздничный вечер</span>
+      </div>
+    </li>
+    <li>
+      <span class="prog-time">17:00</span>
+      <div class="prog-dot"></div>
+      <div class="prog-body">
+        <strong>Праздничный ужин</strong>
+        <span>Тосты, поздравления, первые блюда и хорошее настроение</span>
+      </div>
+    </li>
+    <li>
+      <span class="prog-time">18:30</span>
+      <div class="prog-dot"></div>
+      <div class="prog-body">
+        <strong>Конкурсы и развлечения</strong>
+        <span>Игры, сюрпризы и весёлые моменты от ведущего</span>
+      </div>
+    </li>
+    <li>
+      <span class="prog-time">19:30</span>
+      <div class="prog-dot"></div>
+      <div class="prog-body">
+        <strong>Свадебный танец</strong>
+        <span>Первый танец молодых, затем общие танцы</span>
+      </div>
+    </li>
+    <li>
+      <span class="prog-time">20:30</span>
+      <div class="prog-dot"></div>
+      <div class="prog-body">
+        <strong>Торт и горячее</strong>
+        <span>Разрезание торта, горячие блюда, продолжение застолья</span>
+      </div>
+    </li>
+    <li>
+      <span class="prog-time">22:00</span>
+      <div class="prog-dot"></div>
+      <div class="prog-body">
+        <strong>Вечеринка</strong>
+        <span>Танцы, музыка и хорошее настроение до самого утра</span>
+      </div>
+    </li>
+  </ul>
+</section>
+
+
+<!-- ═══════════════════ SEP ═══════════════════════════ -->
+<div class="sep-fancy fade" aria-hidden="true">
+  <svg width="300" height="22" viewBox="0 0 300 22" fill="none">
+    <line x1="0"   y1="11" x2="126" y2="11" stroke="#e8d5b0" stroke-width="1"/>
+    <path d="M126,11 Q133,6 138,11 Q133,16 126,11Z" fill="#e8b4ae"/>
+    <path d="M162,11 Q155,6 150,11 Q155,16 162,11Z" fill="#e8b4ae"/>
+    <path d="M150,4 L156,11 L150,18 L144,11 Z" fill="none" stroke="#c8a96e" stroke-width="1"/>
+    <path d="M150,8 L153,11 L150,14 L147,11 Z" fill="#e8d5b0"/>
+    <line x1="162" y1="11" x2="300" y2="11" stroke="#e8d5b0" stroke-width="1"/>
+  </svg>
+</div>
+
+
+<!-- ═══════════════════ FORM ═══════════════════════════ -->
+<section>
+  <span class="section-tag fade">✦ &nbsp; ваш ответ</span>
+  <h2 class="fade">Подтвердите участие</h2>
+  <div class="rule fade"></div>
+
+  <div class="form-wrap fade">
+    <div class="lace-top" aria-hidden="true"></div>
+    <form id="rsvpForm" novalidate>
+
+      <!-- Имя -->
+      <div class="form-group">
+        <label class="form-label" for="fullName">Имя и фамилия</label>
+        <input type="text" id="fullName" name="fullName" placeholder="Иван Иванов" required />
+      </div>
+
+      <!-- Придёте? -->
+      <div class="form-group">
+        <label class="form-label">Сможете прийти?</label>
+        <div class="radio-group">
+          <label class="radio-pill">
+            <input type="radio" name="attend" value="yes" required />
+            <span>Да, конечно</span>
+          </label>
+          <label class="radio-pill">
+            <input type="radio" name="attend" value="no" />
+            <span>К сожалению, нет</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Напитки гостя -->
+      <div class="form-group">
+        <label class="form-label">Что будете пить?</label>
+        <div class="check-group" id="drinksGuest">
+          <label class="check-pill"><input type="checkbox" name="drinks_guest" value="Шампанское" /><span>Шампанское</span></label>
+          <label class="check-pill"><input type="checkbox" name="drinks_guest" value="Игристое вино" /><span>Игристое вино</span></label>
+          <label class="check-pill"><input type="checkbox" name="drinks_guest" value="Белое вино" /><span>Белое вино</span></label>
+          <label class="check-pill"><input type="checkbox" name="drinks_guest" value="Красное вино" /><span>Красное вино</span></label>
+          <label class="check-pill"><input type="checkbox" name="drinks_guest" value="Коньяк" /><span>Коньяк</span></label>
+          <label class="check-pill"><input type="checkbox" name="drinks_guest" value="Виски" /><span>Виски</span></label>
+          <label class="check-pill"><input type="checkbox" name="drinks_guest" value="Не пью алкоголь" /><span>Не пью алкоголь</span></label>
+        </div>
+        <div class="drink-other">
+          <input type="text" name="drinks_guest_other" placeholder="Другой напиток — впишите..." />
+        </div>
+      </div>
+
+      <!-- С партнёром? -->
+      <div class="form-group">
+        <label class="form-label">Придёте с партнёром?</label>
+        <div class="radio-group">
+          <label class="radio-pill">
+            <input type="radio" name="withPartner" value="no" checked />
+            <span>Нет, один(а)</span>
+          </label>
+          <label class="radio-pill">
+            <input type="radio" name="withPartner" value="yes" />
+            <span>Да, с партнёром</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Блок партнёра (скрыт по умолчанию) -->
+      <div id="partnerSection" style="display:none;">
+        <div class="partner-section">
+          <p class="partner-heading">Данные о партнёре</p>
+
+          <div class="form-group">
+            <label class="form-label" for="partnerName">Имя и фамилия партнёра</label>
+            <input type="text" id="partnerName" name="partnerName" placeholder="Имя Фамилия" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Что будет пить партнёр?</label>
+            <div class="check-group">
+              <label class="check-pill"><input type="checkbox" name="drinks_partner" value="Шампанское" /><span>Шампанское</span></label>
+              <label class="check-pill"><input type="checkbox" name="drinks_partner" value="Игристое вино" /><span>Игристое вино</span></label>
+              <label class="check-pill"><input type="checkbox" name="drinks_partner" value="Белое вино" /><span>Белое вино</span></label>
+              <label class="check-pill"><input type="checkbox" name="drinks_partner" value="Красное вино" /><span>Красное вино</span></label>
+              <label class="check-pill"><input type="checkbox" name="drinks_partner" value="Коньяк" /><span>Коньяк</span></label>
+              <label class="check-pill"><input type="checkbox" name="drinks_partner" value="Виски" /><span>Виски</span></label>
+              <label class="check-pill"><input type="checkbox" name="drinks_partner" value="Не пью алкоголь" /><span>Не пью алкоголь</span></label>
+            </div>
+            <div class="drink-other">
+              <input type="text" name="drinks_partner_other" placeholder="Другой напиток — впишите..." />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Комментарий -->
+      <div class="form-group">
+        <label class="form-label" for="comment">Пожелание или комментарий</label>
+        <textarea id="comment" name="comment" placeholder="Ваши пожелания молодожёнам..."></textarea>
+      </div>
+
+      <button type="submit" class="btn">Отправить ответ</button>
+
+      <div class="success-msg" id="successMsg">
+        Спасибо! Ваш ответ получен. Ждём вас 22 августа!
+      </div>
+    </form>
+  </div>
+</section>
+
+
+<!-- ═══════════════════ FOOTER ═════════════════════════ -->
+<footer class="fade">
+  <p class="footer-wish">Ждём вас с нетерпением!</p>
+  <p class="footer-names">Роман &amp; Айна</p>
+  <small>22 · 08 · 2026</small>
+</footer>
+
+
+<script>
+  /* ── Fade-in on scroll ── */
+  const obs = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+    { threshold: 0.1 }
+  );
+  document.querySelectorAll('.fade').forEach(el => obs.observe(el));
+
+  /* ── Partner section toggle ── */
+  document.querySelectorAll('input[name="withPartner"]').forEach(radio => {
+    radio.addEventListener('change', function () {
+      document.getElementById('partnerSection').style.display =
+        this.value === 'yes' ? 'block' : 'none';
+    });
+  });
+
+  /* ── Form submit ── */
+  document.getElementById('rsvpForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const name   = document.getElementById('fullName').value.trim();
+    const attend = this.querySelector('input[name="attend"]:checked');
+
+    if (!name) {
+      alert('Пожалуйста, введите ваше имя.');
+      return;
+    }
+    if (!attend) {
+      alert('Пожалуйста, выберите вариант ответа.');
+      return;
+    }
+
+    this.querySelector('button[type="submit"]').style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+  });
+
+  /* ── BACKGROUND MUSIC ── */
+  const audio   = document.getElementById('bgMusic');
+  const btn     = document.getElementById('musicBtn');
+  const iconEl  = btn.querySelector('.music-icon');
+  const labelEl = btn.querySelector('.music-label');
+  let   started = false;
+
+  function fadeIn(targetVol, duration) {
+    audio.volume = 0;
+    const steps     = 40;
+    const stepMs    = duration / steps;
+    const increment = targetVol / steps;
+    const timer = setInterval(() => {
+      if (audio.volume + increment >= targetVol) {
+        audio.volume = targetVol;
+        clearInterval(timer);
+      } else {
+        audio.volume += increment;
+      }
+    }, stepMs);
+  }
+
+  function setPlaying() {
+    iconEl.textContent  = '🔇';
+    labelEl.textContent = 'Выключить музыку';
+  }
+  function setPaused() {
+    iconEl.textContent  = '🎵';
+    labelEl.textContent = 'Включить музыку';
+  }
+
+  function startMusic() {
+    if (started) return;
+    started = true;
+    audio.play().then(() => {
+      fadeIn(0.7, 2000);
+      setPlaying();
+    }).catch(() => {
+      started = false; // браузер заблокировал — сбросим флаг
+    });
+  }
+
+  // Запуск при первом клике в любом месте страницы (кроме самой кнопки)
+  function onFirstPageClick(e) {
+    if (e.target.closest('#musicBtn')) return;
+    startMusic();
+    document.removeEventListener('click', onFirstPageClick);
+  }
+  document.addEventListener('click', onFirstPageClick);
+
+  // Кнопка управления
+  btn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    if (!started) {
+      // первое нажатие кнопки — запускаем и убираем слушатель страницы
+      document.removeEventListener('click', onFirstPageClick);
+      startMusic();
+    } else if (audio.paused) {
+      audio.play();
+      setPlaying();
+    } else {
+      audio.pause();
+      setPaused();
+    }
+  });
+</script>
+
+</body>
+</html>
